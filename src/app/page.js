@@ -2,22 +2,79 @@
 import { useState, useEffect } from "react";
 import { pToEmoji } from "../lib/ar/switch";
 import encoding from "../lib/ar/encoding";
+import Unit from "@/components/Unit";
+import {
+	Page,
+	Text,
+	View,
+	Document,
+	StyleSheet,
+	PDFDownloadLink,
+  Font,
+  Image
+} from "@react-pdf/renderer";
+import "./style.css";
+
+Font.registerEmojiSource({
+	format: "png",
+	url: "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/",
+});
+
+const styles = StyleSheet.create({
+	page: {
+		display: "flex",
+		flexDirection: "column",
+		backgroundColor: "#E4E4E4",
+		color: "#000000",
+    width: "100%",
+  },
+  image: {
+    width:"20px"
+  }
+});
+
 export default function Home() {
 	const [prompt, setPrompt] = useState("");
 
 	return (
 		<main className="flex min-h-screen flex-col items-center justify-start gap-8 p-6">
-			<Page />
+			<Template />
 		</main>
 	);
 }
-function Page() {
+function Template() {
+	const Doc = () => (
+		<Document>
+			<Page size="A4" style={styles.page}>
+        <View >
+				{page.units.map((unit, index) => {
+					return (
+            <Image
+                key="unit.content"
+								style={styles.image}
+                src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f004.png"
+                alt="hi"
+							/>
+              );
+            })}
+            </View>
+			</Page>
+		</Document>
+	);
+	const Download = () => (
+		<PDFDownloadLink document={<Doc />} fileName="generated.pdf">
+			{({ blob, url, loading, error }) =>
+				loading ? "Loading document..." : "Download PDF"
+			}
+		</PDFDownloadLink>
+	);
+
 	const [page, setPage] = useState({
 		state: "inactive",
 		units: [],
 	});
-  function createUnit() {
-    if (focusOnEdit()) return;
+	function createUnit() {
+		if (focusOnEdit()) return;
 		setPage({
 			state: "editing",
 			units: [
@@ -30,8 +87,8 @@ function Page() {
 			],
 		});
 	}
-  function edit(index) {
-    if (focusOnEdit()) return;
+	function edit(index) {
+		if (focusOnEdit()) return;
 		let newUnits = [...page.units];
 		newUnits[index].state = "editing";
 		setPage({
@@ -56,21 +113,23 @@ function Page() {
 			units: newUnits.filter((unit) => unit.content.trim() != ""),
 		});
 	}
-  function remove(index) {
-    if (focusOnEdit()) return;
+	function remove(index) {
+		if (focusOnEdit()) return;
 		page.units.splice(index, 1);
 		setPage({ ...page, units: [...page.units] });
 	}
-  useEffect(() => { focusOnEdit(); });
+	useEffect(() => {
+		focusOnEdit();
+	});
 	function focusOnEdit() {
 		let editing = page.units.filter((unit) => unit.state == "editing")[0];
-    if (!Boolean(editing)) return false;
+		if (!Boolean(editing)) return false;
 		let index = page.units.indexOf(editing);
 		let div = document.getElementById(index.toString());
 		div?.focus();
 		return Boolean(div);
-  }
-  
+	}
+
 	return (
 		<>
 			{page.units.map((unit, index) => {
@@ -91,63 +150,7 @@ function Page() {
 				);
 			})}
 			<button onClick={() => createUnit()}>Add</button>
+			<Download />
 		</>
 	);
-}
-
-function Unit(props) {
-	const [unit, setUnit] = useState({
-		index: props.data.index,
-		encoding: props.data.encoding,
-		state: props.data.state,
-		content: props.data.content,
-		editContent: props.data.content,
-	});
-
-	if (unit.state == "saved") {
-		return (
-			<div className="flex flex-col w-full ">
-				<div className="h-fit whitespace-break-spaces">{unit.content}</div>
-				<div className="h-2 flex gap-4 mt-4">
-					<button
-						onClick={() => {
-							setUnit({ ...unit, editContent: unit.content });
-							props.edit(unit.index);
-						}}
-					>
-						Edit
-					</button>
-					<button onClick={() => props.remove(unit.index)}>Delete</button>
-				</div>
-			</div>
-		);
-	} else {
-		return (
-			<div className="w-full">
-				<textarea
-					id={props.id}
-					rows={unit.editContent.split("\n").length + 1}
-					name="prompt"
-					type="text"
-					className="text-black w-full p-4 focus:outline-2 outline-cyan-600"
-					value={unit.editContent}
-					onChange={(e) => setUnit({ ...unit, editContent: e.target.value })}
-				/>
-				<div className="h-2 flex gap-4 mt-4">
-					<button onClick={() => props.save(unit.index, unit.editContent)}>
-						Save
-					</button>
-					<button onClick={() => setUnit({ ...unit, editContent: "" })}>
-						Clear
-					</button>
-					<button onClick={() => props.cancel(unit.index)}>Cancel</button>
-					<button
-						onClick={() => setUnit({ ...unit, editContent: unit.content })}
-					>
-						Refresh
-					</button>
-				</div>
-			</div>
-		);
-	}
 }
