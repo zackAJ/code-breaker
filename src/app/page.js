@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { pToEmoji } from "../lib/ar/switch";
+import { arSwitch, pToEmoji } from "../lib/ar/switch";
 import encoding from "../lib/ar/encoding";
 import Unit from "@/components/Unit";
 import {
@@ -10,9 +10,10 @@ import {
 	Document,
 	StyleSheet,
 	PDFDownloadLink,
-  Font,
-  Image
+	Font,
+	Image,
 } from "@react-pdf/renderer";
+
 import "./style.css";
 
 Font.registerEmojiSource({
@@ -26,11 +27,30 @@ const styles = StyleSheet.create({
 		flexDirection: "column",
 		backgroundColor: "#E4E4E4",
 		color: "#000000",
-    width: "100%",
-  },
-  image: {
-    width:"20px"
-  }
+		width: "100%",
+	},
+	image: {
+		width: "20px",
+	},
+	unit: {
+		width: "100%",
+		display: "flex",
+		flexWrap: "wrap",
+		flexDirection: "row",
+		justifyContent: "flex-end",
+		marginBottom: "50px",
+	},
+	code: {
+		textAlign: "center",
+		color: "#186F65",
+		padding: "8px",
+    border: "1px solid #186F65",
+    fontSize: "20px",
+    width: "100px",
+    marginHorizontal: "auto",
+    marginVertical: "20px",
+    borderRadius: "16px"
+	},
 });
 
 export default function Home() {
@@ -46,25 +66,38 @@ function Template() {
 	const Doc = () => (
 		<Document>
 			<Page size="A4" style={styles.page}>
-        <View >
 				{page.units.map((unit, index) => {
 					return (
-            <Image
-                key="unit.content"
-								style={styles.image}
-                src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f004.png"
-                alt="hi"
-							/>
-              );
-            })}
-            </View>
+            <>
+              <Text style={styles.code} >Code {unit.encoding}</Text>
+							<View key={`unit_${index}`} style={styles.unit}>
+								{pToEmoji(unit.content, encoding[unit.encoding]).map(
+									(image, index) => {
+										if (image.length > 1) {
+											return (
+												<Image
+													key={`image_${index}`}
+													style={styles.image}
+													src={`/emojis/${image}.png`}
+													alt=""
+												/>
+											);
+										} else {
+											return <Text key={`text_${index}`}>{`${image}`}</Text>;
+										}
+									}
+								)}
+							</View>
+						</>
+					);
+				})}
 			</Page>
 		</Document>
 	);
 	const Download = () => (
-		<PDFDownloadLink document={<Doc />} fileName="generated.pdf">
+		<PDFDownloadLink document={<Doc />} fileName="generated.pdf" className="border p-2 rounded-md">
 			{({ blob, url, loading, error }) =>
-				loading ? "Loading document..." : "Download PDF"
+				loading ? "Loading ..." : "Download PDF"
 			}
 		</PDFDownloadLink>
 	);
@@ -129,6 +162,15 @@ function Template() {
 		div?.focus();
 		return Boolean(div);
 	}
+	function handleOptionChange(index, value) {
+		if (focusOnEdit()) return;
+		let newUnits = [...page.units];
+		newUnits[index].encoding = value;
+		setPage({
+			...page,
+			units: newUnits,
+		});
+	}
 
 	return (
 		<>
@@ -146,6 +188,7 @@ function Template() {
 						save={save}
 						remove={remove}
 						id={index.toString()}
+						onOptionChange={handleOptionChange}
 					/>
 				);
 			})}

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Dropdown from "@/components/Dropdown";
 export default function Unit(props) {
 	const [unit, setUnit] = useState({
 		index: props.data.index,
@@ -6,11 +7,20 @@ export default function Unit(props) {
 		state: props.data.state,
 		content: props.data.content,
 		editContent: props.data.content,
-	});
-
+  });
+  const options = [];
+  for (let i = 0; i < 5; i++) {
+    options.push({ label: `Code ${i+1}`, value: i });
+  }
+    function handleOptionChange(value) {
+					props.onOptionChange(unit.index,value);
+		}
 	if (unit.state == "saved") {
 		return (
 			<div className="flex flex-col w-full ">
+				<div className="flex justify-center">
+					<Dropdown options={options} onOptionChange={handleOptionChange} value={unit.encoding} />
+				</div>
 				<div className="h-fit whitespace-break-spaces">{unit.content}</div>
 				<div className="h-2 flex gap-4 mt-4">
 					<button
