@@ -12,6 +12,7 @@ import {
 	PDFDownloadLink,
 	Font,
 	Image,
+	Svg,
 } from "@react-pdf/renderer";
 
 import "./style.css";
@@ -27,29 +28,41 @@ const styles = StyleSheet.create({
 		flexDirection: "column",
 		backgroundColor: "#E4E4E4",
 		color: "#000000",
-		width: "100%",
+		width: "100vw",
 	},
 	image: {
 		width: "20px",
 	},
 	unit: {
-		width: "100%",
+		width: "95%",
 		display: "flex",
 		flexWrap: "wrap",
 		flexDirection: "row",
 		justifyContent: "flex-end",
 		marginBottom: "50px",
+		marginHorizontal: "auto",
+		border: "1px solid #186F65",
+		borderRadius: "8px",
+		padding: "8px",
 	},
 	code: {
-		textAlign: "center",
 		color: "#186F65",
-		padding: "8px",
-    border: "1px solid #186F65",
-    fontSize: "20px",
-    width: "100px",
-    marginHorizontal: "auto",
-    marginVertical: "20px",
-    borderRadius: "16px"
+		padding: "4px",
+		fontSize: "20px",
+		width: "100px",
+		borderBottomLeftRadius: "0px",
+		borderBottomRightRadius: "0px",
+	},
+	viewCode: {
+    textAlign: "center",
+		marginHorizontal: "auto",
+		marginBottom: "-15px",
+		backgroundColor: "#E4E4E4",
+    zIndex: "9999",
+	},
+	logo: {
+		margin: "2.5%",
+		width: "100px",
 	},
 });
 
@@ -66,10 +79,13 @@ function Template() {
 	const Doc = () => (
 		<Document>
 			<Page size="A4" style={styles.page}>
+				<Image style={styles.logo} src="/logo.png" alt="logo" />
 				{page.units.map((unit, index) => {
 					return (
-            <>
-              <Text style={styles.code} >Code {unit.encoding}</Text>
+						<>
+							<View style={styles.viewCode}>
+								<Text style={styles.code}>Code {unit.encoding}</Text>
+							</View>
 							<View key={`unit_${index}`} style={styles.unit}>
 								{pToEmoji(unit.content, encoding[unit.encoding]).map(
 									(image, index) => {
@@ -83,7 +99,7 @@ function Template() {
 												/>
 											);
 										} else {
-											return <Text key={`text_${index}`}>{`${image}`}</Text>;
+											return <Text key={`text_${index}`}>{image}</Text>;
 										}
 									}
 								)}
@@ -95,7 +111,11 @@ function Template() {
 		</Document>
 	);
 	const Download = () => (
-		<PDFDownloadLink document={<Doc />} fileName="generated.pdf" className="border p-2 rounded-md">
+		<PDFDownloadLink
+			document={<Doc />}
+			fileName="generated.pdf"
+			className="border p-2 rounded-md"
+		>
 			{({ blob, url, loading, error }) =>
 				loading ? "Loading ..." : "Download PDF"
 			}
