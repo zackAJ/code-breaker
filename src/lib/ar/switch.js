@@ -11,12 +11,12 @@ function toEmoji(unicode) {
 function pToEmoji(value, encoding) {
 	let emojis = [];
 	for (let letter = 0, size = value.length; letter < size; letter++) {
-		emojis = [arSwitch(value.charAt(letter), encoding),...emojis];
+		emojis = [...emojis, arSwitch(value.charAt(letter), encoding)];
 	}
 	return emojis;
 }
 function arSwitch(letter, encoding) {
-	switch (letter) {
+  switch (letter) {
 		case "ا":
 			return encoding[0];
 		case "ب":
@@ -86,7 +86,7 @@ function arSwitch(letter, encoding) {
 		case " ":
 			return "     ";
 		case "\n":
-			return "\n";
+			return "~";
 		default:
 			return letter;
 	}

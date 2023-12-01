@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { arSwitch, pToEmoji } from "../lib/ar/switch";
+import { pToEmoji } from "../lib/ar/switch";
 import encoding from "../lib/ar/encoding";
 import Unit from "@/components/Unit";
 import {
@@ -12,7 +12,6 @@ import {
 	PDFDownloadLink,
 	Font,
 	Image,
-	Svg,
 } from "@react-pdf/renderer";
 
 import "./style.css";
@@ -37,13 +36,14 @@ const styles = StyleSheet.create({
 		width: "95%",
 		display: "flex",
 		flexWrap: "wrap",
-		flexDirection: "row",
-		justifyContent: "flex-end",
+		flexDirection: "row-reverse",
 		marginBottom: "50px",
 		marginHorizontal: "auto",
 		border: "1px solid #186F65",
 		borderRadius: "8px",
 		padding: "8px",
+		paddingTop: "16px",
+		zIndex: "9",
 	},
 	code: {
 		color: "#186F65",
@@ -54,16 +54,19 @@ const styles = StyleSheet.create({
 		borderBottomRightRadius: "0px",
 	},
 	viewCode: {
-    textAlign: "center",
+		textAlign: "center",
 		marginHorizontal: "auto",
 		marginBottom: "-15px",
 		backgroundColor: "#E4E4E4",
-    zIndex: "9999",
 	},
 	logo: {
 		margin: "2.5%",
 		width: "100px",
 	},
+  space: {
+    width: "100%",
+    marginBottom:"20px"
+  }
 });
 
 export default function Home() {
@@ -77,7 +80,7 @@ export default function Home() {
 }
 function Template() {
 	const Doc = () => (
-		<Document>
+		<Document dir="rtl">
 			<Page size="A4" style={styles.page}>
 				<Image style={styles.logo} src="/logo.png" alt="logo" />
 				{page.units.map((unit, index) => {
@@ -87,9 +90,9 @@ function Template() {
 								<Text style={styles.code}>Code {unit.encoding}</Text>
 							</View>
 							<View key={`unit_${index}`} style={styles.unit}>
-								{pToEmoji(unit.content, encoding[unit.encoding]).map(
+								{pToEmoji(unit.content.trim(), encoding[unit.encoding]).map(
 									(image, index) => {
-										if (image.length > 1) {
+										if (image.length > 2) {
 											return (
 												<Image
 													key={`image_${index}`}
@@ -98,7 +101,13 @@ function Template() {
 													alt=""
 												/>
 											);
-										} else {
+                    } else if (image == '~') {
+                      return (
+												<Text style={styles.space} key={`text_${index}`}/>
+											);
+										}
+                    
+                    else {
 											return <Text key={`text_${index}`}>{image}</Text>;
 										}
 									}
@@ -159,7 +168,7 @@ function Template() {
 	}
 	function save(index, newContent) {
 		let newUnits = [...page.units];
-		newUnits[index].content = newContent;
+		newUnits[index].content = newContent.trim();
 		newUnits[index].state = "saved";
 		setPage({
 			...page,

@@ -19,10 +19,16 @@ export default function Unit(props) {
 		return (
 			<div className="flex flex-col w-full ">
 				<div className="flex justify-center">
-					<Dropdown options={options} onOptionChange={handleOptionChange} value={unit.encoding} />
+					<Dropdown
+						options={options}
+						onOptionChange={handleOptionChange}
+						value={unit.encoding}
+					/>
 				</div>
-				<div className="h-fit whitespace-break-spaces">{unit.content}</div>
-				<div className="h-2 flex gap-4 mt-4">
+				<div className="h-fit whitespace-break-spaces" dir="rtl">
+					{unit.content}
+				</div>
+				<div className="h-2 flex gap-4 mt-4 ml-auto">
 					<button
 						onClick={() => {
 							setUnit({ ...unit, editContent: unit.content });
@@ -48,7 +54,7 @@ export default function Unit(props) {
 					value={unit.editContent}
 					onChange={(e) => setUnit({ ...unit, editContent: e.target.value })}
 				/>
-				<div className="h-2 flex gap-4 mt-4">
+				<div className="h-2 flex gap-4 mt-4 justify-end">
 					<button onClick={() => props.save(unit.index, unit.editContent)}>
 						Save
 					</button>
