@@ -6,6 +6,7 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --tw-gradient-stops: rgba(0.1,0.1,0.1,0.1) ,transparent;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -24,4 +25,14 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+}
+
+@font-face {
+  font-family: Ar;
+  src:
+    url("/Noto_Sans_Arabic/NotoSansArabic-VariableFont_wdth,wght.ttf");
+}
+
+* {
+  font-family: Ar, sans-serif;
 }

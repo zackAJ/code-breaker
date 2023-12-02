@@ -8,7 +8,7 @@ function shuffle(array){
 function toEmoji(unicode) {
 	return String.fromCodePoint("0x" + unicode);
 }
-function pToEmoji(value, encoding) {
+function pToUnicode(value, encoding) {
 	let emojis = [];
 	for (let letter = 0, size = value.length; letter < size; letter++) {
 		emojis = [...emojis, arSwitch(value.charAt(letter), encoding)];
@@ -16,6 +16,7 @@ function pToEmoji(value, encoding) {
 	return emojis;
 }
 function arSwitch(letter, encoding) {
+  ;
   switch (letter) {
 		case "ا":
 			return encoding[0];
@@ -83,6 +84,8 @@ function arSwitch(letter, encoding) {
 			return encoding[31];
 		case "ئ":
 			return encoding[32];
+		case "إ":
+			return encoding[33];
 		case " ":
 			return "     ";
 		case "\n":
@@ -92,4 +95,8 @@ function arSwitch(letter, encoding) {
 	}
 }
 export default arSwitch;
-export { arSwitch, toEmoji, pToEmoji };
+export { arSwitch, toEmoji, pToUnicode };
+// آ
+// أ
+// آ
+// أ

@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { pToEmoji } from "../lib/ar/switch";
+import { pToUnicode } from "../lib/ar/switch";
 import encoding from "../lib/ar/encoding";
 import Unit from "@/components/Unit";
 import {
@@ -25,12 +25,11 @@ const styles = StyleSheet.create({
 	page: {
 		display: "flex",
 		flexDirection: "column",
-		backgroundColor: "#E4E4E4",
 		color: "#000000",
 		width: "100vw",
 	},
 	image: {
-		width: "20px",
+		width: "24px",
 	},
 	unit: {
 		width: "95%",
@@ -57,7 +56,7 @@ const styles = StyleSheet.create({
 		textAlign: "center",
 		marginHorizontal: "auto",
 		marginBottom: "-15px",
-		backgroundColor: "#E4E4E4",
+		backgroundColor: "#ffffff",
 	},
 	logo: {
 		margin: "2.5%",
@@ -90,14 +89,14 @@ function Template() {
 								<Text style={styles.code}>Code {unit.encoding}</Text>
 							</View>
 							<View key={`unit_${index}`} style={styles.unit}>
-								{pToEmoji(unit.content.trim(), encoding[unit.encoding]).map(
+								{pToUnicode(unit.content.trim(), encoding[unit.encoding]).map(
 									(image, index) => {
 										if (image.length > 2) {
 											return (
 												<Image
 													key={`image_${index}`}
 													style={styles.image}
-													src={`/emojis/${image}.png`}
+													src={`/emojis_min/${image}.png`}
 													alt=""
 												/>
 											);
@@ -108,7 +107,8 @@ function Template() {
 										}
                     
                     else {
-											return <Text key={`text_${index}`}>{image}</Text>;
+                      console.log(image);
+                      return (<Text key={`text_${index}`}>{image}</Text>);
 										}
 									}
 								)}
