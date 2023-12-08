@@ -32,6 +32,8 @@ const alphabet = [
 	"ؤ",
 	"ء",
 	"ئ",
-	"إ",
+  "إ",
+  "آ",
+	"أ",
 ];
 export default alphabet;

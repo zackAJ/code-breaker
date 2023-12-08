@@ -10,7 +10,7 @@ export default function Guide() {
 
   return (
 		<main className="min-h-screen p-6  bg-white text-black">
-			<div className="flex flex-col gap-2 items-center justify-start ">
+			<div className="flex flex-col gap-2 items-center justify-start">
 				{encoding.map((code, index) => {
 					return (
 						<>
@@ -52,7 +52,7 @@ function Avatar({ letter,encoding }) {
 					key={letter}
 					src={`/emojis_min/${pToUnicode(letter, encoding)}.png`}
 					alt=""
-					className="w-[32px]"
+					className="w-[31px]"
 				/>
 				<div className="text-[26px] font-bold">{letter}</div>
 			</div>
