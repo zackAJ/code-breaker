@@ -10,7 +10,7 @@ export default function Unit(props) {
   });
   const options = [];
   for (let i = 0; i < 5; i++) {
-    options.push({ label: `Code ${i+1}`, value: i });
+    options.push({ label: `تشفير ${i+1}`, value: i });
   }
     function handleOptionChange(value) {
 					props.onOptionChange(unit.index,value);

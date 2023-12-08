@@ -48,15 +48,18 @@ const styles = StyleSheet.create({
 		color: "#186F65",
 		padding: "4px",
 		fontSize: "20px",
-		width: "100px",
 		borderBottomLeftRadius: "0px",
 		borderBottomRightRadius: "0px",
 	},
 	viewCode: {
 		textAlign: "center",
-		marginHorizontal: "auto",
+    marginHorizontal: "auto",
+    paddingHorizontal:"10px",
 		marginBottom: "-15px",
 		backgroundColor: "#ffffff",
+    display: "flex",
+    flexDirection: "row",
+    flexWrap:"nowrap"
 	},
 	logo: {
 		margin: "2.5%",
@@ -86,7 +89,7 @@ function Template() {
 					return (
 						<>
 							<View style={styles.viewCode}>
-								<Text style={styles.code}>Code {unit.encoding}</Text>
+								<Text style={styles.code}>{unit.encoding}</Text> <Image style={{width:"25px",display:"inline"}} src="/tachfir.png" />
 							</View>
 							<View key={`unit_${index}`} style={styles.unit}>
 								{pToUnicode(unit.content.trim(), encoding[unit.encoding]).map(
