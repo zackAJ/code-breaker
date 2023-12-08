@@ -86,17 +86,159 @@ function arSwitch(letter, encoding) {
 			return encoding[32];
 		case "إ":
 			return encoding[33];
+		case "آ":
+			return encoding[34];
+		case "أ":
+			return encoding[35];
+		case "٠":
+			return "0";
+		case "١":
+			return "1";
+		case "٢":
+			return "2";
+		case "٣":
+			return "3";
+		case "٤":
+			return "4";
+		case "٥":
+			return "5";
+		case "٦":
+			return "6";
+		case "٧":
+			return "7";
+		case "٨":
+			return "8";
+		case "٩":
+			return "9";
+		case "؟":
+			return "?";
 		case " ":
 			return "     ";
 		case "\n":
 			return "~";
+
+		//excludes
+		case "؀":
+			return "";
+		case "؁":
+			return "";
+		case "؂":
+			return "";
+		case "؃":
+			return "";
+		case "؄":
+			return "";
+		case "؅":
+			return "";
+		case "؆":
+			return "";
+		case "؇":
+			return "";
+		case "؈":
+			return "";
+		case "؉":
+			return "";
+		case "؊":
+			return "";
+		case "؋":
+			return "";
+		case "،":
+			return ",";
+		case "؍":
+			return "";
+		case "؎":
+			return "";
+		case "؏":
+			return "";
+		case "ؐ":
+			return "";
+		case "ؑ":
+			return "";
+		case "ؒ":
+			return "";
+		case "ؓ":
+			return "";
+		case "ؔ":
+			return "";
+		case "ؕ":
+			return "";
+		case "ؖ":
+			return "";
+		case "ؗ":
+			return "";
+		case "ؘ":
+			return "";
+		case "ؙ":
+			return "";
+		case "ؚ":
+			return "";
+		case "؛":
+			return "";
+		case "؜":
+			return "";
+		case "؝":
+			return "";
+		case "؞":
+			return "";
+		case "ؠ":
+			return "";
+		case "ػ":
+			return "";
+		case "ؼ":
+			return "";
+		case "ؽ":
+			return "";
+		case "ؾ":
+			return "";
+		case "ؿ":
+			return "";
+		case "ـ":
+			return "";
+		case "ً":
+			return "";
+		case "ٌ":
+			return "";
+		case "ٍ":
+			return "";
+		case "َ":
+			return "";
+		case "ُ":
+			return "";
+		case "ِ":
+			return "";
+		case "ّ":
+			return "";
+		case "ْ":
+			return "";
+		case "ٓ":
+			return "";
+		case "ٔ":
+			return "";
+		case "ٕ":
+			return "";
+		case "ٖ":
+			return "";
+		case "ٗ":
+			return "";
+		case "٘":
+			return "";
+		case "ٙ":
+			return "";
+		case "ٚ":
+			return "";
+		case "ٛ":
+			return "";
+		case "ٜ":
+			return "";
+		case "ٝ":
+			return "";
+		case "ٞ":
+			return "";
+		case "ٟ":
+			return "";
 		default:
 			return letter;
 	}
 }
 export default arSwitch;
 export { arSwitch, toEmoji, pToUnicode };
-// آ
-// أ
-// آ
-// أ
