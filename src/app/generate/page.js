@@ -75,9 +75,9 @@ export default function Home() {
 	const [prompt, setPrompt] = useState("");
 
 	return (
-		<main className="flex min-h-screen flex-col items-center justify-start gap-8 p-6">
+		<div className="flex h-full w-full flex-col items-center justify-start gap-8 ">
 			<Template />
-		</main>
+		</div>
 	);
 }
 function Template() {
@@ -125,11 +125,11 @@ function Template() {
 	const Download = () => (
 		<PDFDownloadLink
 			document={<Doc />}
-			fileName="generated.pdf"
-			className="border p-2 rounded-md"
+			fileName="رسالة.pdf"
+			className="p-2 rounded-md gradient-border"
 		>
 			{({ blob, url, loading, error }) =>
-				loading ? "Loading ..." : "Download PDF"
+				loading ? "تحميل ..." : "تحميل PDF"
 			}
 		</PDFDownloadLink>
 	);
@@ -224,7 +224,7 @@ function Template() {
 					/>
 				);
 			})}
-			<button onClick={() => createUnit()}>Add</button>
+			<button onClick={() => createUnit()}>رسالة جديدة</button>
 			<Download />
 		</>
 	);

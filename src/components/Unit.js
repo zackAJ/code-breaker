@@ -35,17 +35,17 @@ export default function Unit(props) {
 							props.edit(unit.index);
 						}}
 					>
-						Edit
+						تعديل
 					</button>
-					<button onClick={() => props.remove(unit.index)}>Delete</button>
+					<button onClick={() => props.remove(unit.index)}>حذف</button>
 				</div>
 			</div>
 		);
 	} else {
 		return (
 			<div className="w-full">
-        <textarea
-          dir="rtl"
+				<textarea
+					dir="rtl"
 					id={props.id}
 					rows={unit.editContent.split("\n").length + 1}
 					name="prompt"
@@ -56,16 +56,16 @@ export default function Unit(props) {
 				/>
 				<div className="h-2 flex gap-4 mt-4 justify-end">
 					<button onClick={() => props.save(unit.index, unit.editContent)}>
-						Save
+						حفظ
 					</button>
 					<button onClick={() => setUnit({ ...unit, editContent: "" })}>
-						Clear
+						مسح
 					</button>
-					<button onClick={() => props.cancel(unit.index)}>Cancel</button>
+					<button onClick={() => props.cancel(unit.index)}>إلغاء</button>
 					<button
 						onClick={() => setUnit({ ...unit, editContent: unit.content })}
 					>
-						Refresh
+						اعادة
 					</button>
 				</div>
 			</div>
