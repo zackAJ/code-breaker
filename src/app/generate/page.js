@@ -12,7 +12,7 @@ import {
 	PDFDownloadLink,
 	Font,
 	Image,
-} from "@react-pdf/renderer";
+} from "@react-pdf/renderer/lib/react-pdf.browser.es.js";
 
 import "@/app/style.css";
 
@@ -72,6 +72,7 @@ const styles = StyleSheet.create({
 });
 
 export default function Home() {
+  "use client";
 	const [prompt, setPrompt] = useState("");
 
 	return (
@@ -81,6 +82,7 @@ export default function Home() {
 	);
 }
 function Template() {
+  "use client";
 	const Doc = () => (
 		<Document dir="rtl">
 			<Page size="A4" style={styles.page}>

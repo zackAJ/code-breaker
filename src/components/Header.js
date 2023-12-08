@@ -15,7 +15,7 @@ export default function Component() {
           <img src="./logo.png" alt="logo" className="w-[50px]"/>
 				</a>
 			</div>
-			<nav class="flex items-center space-x-4">
+			<nav className="flex items-center space-x-4">
 				<Link className={`p-2 !rounded-md gradient-border`} href="/onePage">
 					الدليل 2
 				</Link>
