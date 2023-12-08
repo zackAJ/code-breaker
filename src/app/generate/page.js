@@ -91,7 +91,7 @@ function Template() {
 					return (
 						<>
 							<View style={styles.viewCode}>
-								<Text style={styles.code}>{unit.encoding}</Text> <Image style={{width:"35px",display:"inline"}} src="/tachfir.png" />
+								<Text style={styles.code}>{unit.encoding + 1}</Text> <Image style={{width:"35px",display:"inline"}} src="/tachfir.png" />
 							</View>
 							<View key={`unit_${index}`} style={styles.unit}>
 								{pToUnicode(unit.content.trim(), encoding[unit.encoding]).map(
