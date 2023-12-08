@@ -1,4 +1,5 @@
-export default  function Pages() {
+"use client";
+export default function Pages() {
 	return (
 		<iframe
 			className="w-full h-full"
