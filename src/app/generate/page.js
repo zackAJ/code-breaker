@@ -122,7 +122,7 @@ function Template() {
 													<Text
 														style={styles.dashes}
 														render={({ image }) =>
-															image === " " ? "                  " : "- - -"
+															image === " " ? "                    " : "- - -"
 														}
 													/>
 												</View>
