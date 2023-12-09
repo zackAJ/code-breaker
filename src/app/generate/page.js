@@ -27,7 +27,15 @@ const styles = StyleSheet.create({
 		flexDirection: "column",
 		color: "#000000",
 		width: "100vw",
-	},
+  },
+  letter: {
+    display: "flex",
+    flexDirection: "column",
+    gap: "5px"
+  },
+  dashes: {
+    opacity:"0.2"
+  },
 	image: {
 		width: "24px",
 	},
@@ -42,7 +50,8 @@ const styles = StyleSheet.create({
 		borderRadius: "8px",
 		padding: "8px",
 		paddingTop: "25px",
-		zIndex: "9",
+    zIndex: "9",
+    gap:"10px"
 	},
 	code: {
 		color: "#186F65",
@@ -52,27 +61,27 @@ const styles = StyleSheet.create({
 	},
 	viewCode: {
 		textAlign: "center",
-    marginHorizontal: "auto",
-    paddingHorizontal:"10px",
+		marginHorizontal: "auto",
+		paddingHorizontal: "10px",
 		marginBottom: "-10px",
 		backgroundColor: "#ffffff",
-    display: "flex",
-    flexDirection: "row",
-    flexWrap:"nowrap"
+		display: "flex",
+		flexDirection: "row",
+		flexWrap: "nowrap",
 	},
 	logo: {
-    marginVertical:"2.5%",
-    marginHorizontal:"auto",
+		marginVertical: "2.5%",
+		marginHorizontal: "auto",
 		width: "100px",
 	},
-  space: {
-    width: "100%",
-    marginBottom:"20px"
-  }
+	space: {
+		width: "100%",
+		marginBottom: "20px",
+	},
 });
 
 export default function Home() {
-  "use client";
+	"use client";
 	const [prompt, setPrompt] = useState("");
 
 	return (
@@ -82,7 +91,7 @@ export default function Home() {
 	);
 }
 function Template() {
-  "use client";
+	"use client";
 	const Doc = () => (
 		<Document dir="rtl">
 			<Page size="A4" style={styles.page}>
@@ -91,29 +100,35 @@ function Template() {
 					return (
 						<>
 							<View style={styles.viewCode}>
-								<Text style={styles.code}>{unit.encoding + 1}</Text> <Image style={{width:"35px",display:"inline"}} src="/tachfir.png" />
+								<Text style={styles.code}>{unit.encoding + 1}</Text>{" "}
+								<Image
+									style={{ width: "35px", display: "inline" }}
+									src="/tachfir.png"
+								/>
 							</View>
 							<View key={`unit_${index}`} style={styles.unit}>
 								{pToUnicode(unit.content.trim(), encoding[unit.encoding]).map(
 									(image, index) => {
 										if (image.length > 2) {
 											return (
-												<Image
-													key={`image_${index}`}
-													style={styles.image}
-													src={`/emojis_min/${image}.png`}
-													alt=""
-												/>
+												<View key={`image_${index}`} >
+													<Image
+														style={styles.image}
+														src={`/emojis_min/${image}.png`}
+														alt=""
+                          />
+                          <Text style={styles.dashes}>
+                            - - -
+                          </Text>
+												</View>
 											);
-                    } else if (image == '~') {
-                      return (
-												<Text style={styles.space} key={`text_${index}`}/>
+										} else if (image == "~") {
+											return (
+												<Text style={styles.space} key={`text_${index}`} />
 											);
-										}
-                    
-                    else {
-                      console.log(image);
-                      return (<Text key={`text_${index}`}>{image}</Text>);
+										} else {
+											console.log(image);
+											return <Text key={`text_${index}`}>{image}</Text>;
 										}
 									}
 								)}
@@ -130,9 +145,7 @@ function Template() {
 			fileName="رسالة.pdf"
 			className="p-2 rounded-md gradient-border"
 		>
-			{({ blob, url, loading, error }) =>
-				loading ? "تحميل ..." : "تحميل PDF"
-			}
+			{({ blob, url, loading, error }) => (loading ? "تحميل ..." : "تحميل PDF")}
 		</PDFDownloadLink>
 	);
 

@@ -7,11 +7,11 @@ const Dropdown = ({ options, onOptionChange,value }) => {
 		onOptionChange(selectedValue);
 	};
 	return (
-		<div>
+		<div className="gradient-border">
 			<select
 				id="dropdown"
 				value={value}
-				className="border  text-[#186F65] bg-transparent cursor-pointer rounded-md"
+				className="text-[#186F65] bg-transparent cursor-pointer rounded-md"
 				onChange={handleOptionChange}
 			>
 				{options.map((option, index) => (

@@ -9,8 +9,8 @@ import Drop from "@/components/Drop";
 export default function Component() {
 
 	return (
-		<header class="flex items-center justify-between px-4 py-2  shadow">
-			<div class="flex items-center">
+		<header className="flex items-center justify-between px-4 py-2  shadow">
+			<div className="flex items-center">
 				<a href="/">
           <img src="./logo.png" alt="logo" className="w-[50px]"/>
 				</a>
