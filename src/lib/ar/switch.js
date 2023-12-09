@@ -113,7 +113,7 @@ function arSwitch(letter, encoding) {
 		case "؟":
 			return "?";
 		case " ":
-			return "     ";
+			return " ";
 		case "\n":
 			return "~";
 

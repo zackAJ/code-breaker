@@ -27,15 +27,17 @@ const styles = StyleSheet.create({
 		flexDirection: "column",
 		color: "#000000",
 		width: "100vw",
-  },
-  letter: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "5px"
-  },
-  dashes: {
-    opacity:"0.2"
-  },
+	},
+	letter: {
+		display: "flex",
+		flexDirection: "column",
+		justifyContent: "flex-between",
+		height: "60px",
+	},
+	dashes: {
+		opacity: "0.2",
+		marginTop: "5px",
+	},
 	image: {
 		width: "24px",
 	},
@@ -50,8 +52,8 @@ const styles = StyleSheet.create({
 		borderRadius: "8px",
 		padding: "8px",
 		paddingTop: "25px",
-    zIndex: "9",
-    gap:"10px"
+		zIndex: "9",
+		gap: "10px",
 	},
 	code: {
 		color: "#186F65",
@@ -74,7 +76,7 @@ const styles = StyleSheet.create({
 		marginHorizontal: "auto",
 		width: "100px",
 	},
-	space: {
+	newLine: {
 		width: "100%",
 		marginBottom: "20px",
 	},
@@ -108,26 +110,28 @@ function Template() {
 							</View>
 							<View key={`unit_${index}`} style={styles.unit}>
 								{pToUnicode(unit.content.trim(), encoding[unit.encoding]).map(
-									(image, index) => {
+                  (image, index) => {
 										if (image.length > 2) {
 											return (
-												<View key={`image_${index}`} >
+												<View key={`image_${index}`}>
 													<Image
 														style={styles.image}
 														src={`/emojis_min/${image}.png`}
 														alt=""
-                          />
-                          <Text style={styles.dashes}>
-                            - - -
-                          </Text>
+													/>
+													<Text
+														style={styles.dashes}
+														render={({ image }) =>
+															image === " " ? "                  " : "- - -"
+														}
+													/>
 												</View>
 											);
 										} else if (image == "~") {
 											return (
-												<Text style={styles.space} key={`text_${index}`} />
+												<Text style={styles.newLine} key={`text_${index}`} />
 											);
 										} else {
-											console.log(image);
 											return <Text key={`text_${index}`}>{image}</Text>;
 										}
 									}
