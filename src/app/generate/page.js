@@ -102,7 +102,9 @@ function Template() {
 					return (
 						<>
 							<View style={styles.viewCode}>
-								<Text style={styles.code}>{unit.encoding + 1}</Text>{" "}
+								<Text style={styles.code}>
+									{Number.parseInt(unit.encoding) + 1}
+								</Text>{" "}
 								<Image
 									style={{ width: "35px", display: "inline" }}
 									src="/tachfir.png"
@@ -110,7 +112,7 @@ function Template() {
 							</View>
 							<View key={`unit_${index}`} style={styles.unit}>
 								{pToUnicode(unit.content.trim(), encoding[unit.encoding]).map(
-                  (image, index) => {
+									(image, index) => {
 										if (image.length > 2) {
 											return (
 												<View key={`image_${index}`}>
