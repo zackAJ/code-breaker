@@ -1,0 +1,1 @@
+serviceWorkerRegistration.register();
